@@ -1,0 +1,10 @@
+[package]
+name = "mcwfences"
+version = "1.1.2"
+edition = "2024"
+license = "MIT"
+description = "Macaw's Fences and Walls for Sunrise: the wired fences' contact damage"
+
+[dependencies]
+# The pinned SDK's API crate, fetched into .sunrise/sdk/ by any `cargo sunrise-mod` command.
+sunrise-mod-api = { path = ".sunrise/sdk/api/crates/sunrise-mod-api" }

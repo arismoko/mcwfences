@@ -1,4 +1,4 @@
-# Macaw's Fences and Walls for Sunrise: content only (data/ and assets/), no code.
+# Macaw's Fences and Walls for Sunrise: content in data/ and assets/, with a small native part in src/.
 id = "mcwfences"
 name = "Macaw's Fences and Walls"
 version = "1.1.2"
@@ -8,3 +8,7 @@ license = "MIT"
 credits = "Ported to Minecraft 26.3 by unnamed0631, and to Sunrise by arismoko."
 homepage = "https://github.com/arismoko/mcwfences"
 side = "both"
+
+[native]
+game = "26.3"
+sunrise = "7cfdf81463ebb4a19705768273909f7f3f03601d"
