@@ -1,50 +1,33 @@
-# Macaw's Fences and Walls for Horizon
+# Macaw's Fences and Walls for Sunrise
 
-A Horizon version of [Macaw's Fences and Walls](https://github.com/sketchmacaw/Fences) by
-Sketch Macaw and Peachy Macaw. MIT.
+150 fences, gates, walls and hedges in eleven woods and many stone finishes.
 
-It adds **150 blocks** — hedges, fences, gates and walls — in eleven woods and a range of
-stone finishes. They have their own models, textures, names, recipes, drops and creative tab.
+A port of [Macaw's Fences and Walls](https://github.com/sketchmacaw/Fences) by Sketch Macaw and Peachy Macaw to [Sunrise](https://playsunrise.net) (Minecraft Java 26.3), as a content mod: the original's blocks, models, textures, recipes and strings, with no code.
 
-![Fences, hedges, gates and walls placed in game](screenshots/fences.png)
+## What it does
 
-![The mod's creative tab](screenshots/creative-tab.png)
+- Picket, stockade, horse and wired fences, highley and pyramid gates and modern railings in eleven woods.
+- Pillared and grass-topped walls in stone finishes, and leaf hedges.
+- Fences and walls join their neighbours, gates face the way you place them, and fences can be waterlogged.
+- 192 recipes (crafting and stonecutting), drops and a creative tab.
 
-## What works
+## Differences from the original
 
-- All 150 blocks, placed, connected and drawn in game.
-- Fences and walls join their neighbours, gates face the way you place them, and fences
-  can be waterlogged.
-- 192 recipes (150 crafting, 42 stonecutting) and 150 loot tables; crafting and drops
-  checked in game.
-- Stone sets need a pickaxe, hedges are as soft as leaves, and wooden fences burn in a
-  furnace.
-- The creative tab lists all 150 blocks.
+- The wired fences don't hurt you when you walk into them; that is Java code.
 
-## What doesn't work yet
+## Building
 
-- **The 11 wired fences don't hurt you.** In the original, walking through one deals 2
-  damage. It would take a separate native mod.
-
-The full MIT licence and notice are inside the `.hmod` as well
-(`assets/mcwfences/license.txt`, `notice.txt`), so they travel with every copy.
-
-## Install
-
-Put `mcwfences.hmod` in the `horizon-mods` folder of your game folder (the one with
-`options.txt`), then turn it on in Options > Mods.
-
-## Build
+With the Sunrise mod tool (`cargo sunrise-mod`, from the Sunrise SDK):
 
 ```sh
-cargo install --git https://github.com/horizon-rust/horizon cargo-horizon-mod
-cd content && cargo horizon-mod build
+cargo sunrise-mod check
+cargo sunrise-mod build    # target/sunrise-mod/mcwfences.smod
 ```
 
-The file is written to `content/target/horizon-mod/mcwfences.hmod`.
+This version is made for the Sunrise Dev build `dev-2026-11-22-7cfdf81`.
 
-## Credits and licence
+## Licence and credits
 
-Original mod: [Macaw's Fences and Walls](https://github.com/sketchmacaw/Fences) by Sketch
-Macaw and Peachy Macaw. Horizon port: unnamed0631. Licence: MIT — see [LICENSE](LICENSE); the
-original notices are preserved in [LICENSE-NOTICE.md](LICENSE-NOTICE.md).
+Macaw's Fences and Walls is by Sketch Macaw and Peachy Macaw (https://github.com/sketchmacaw/Fences). Its textures, models, recipes and strings are used here under the **MIT licence**, the original's; `LICENSE` holds the text and its copyright notice, and `LICENSE-NOTICE.md` says where it was read.
+
+Carried to Minecraft 26.3 by unnamed0631 ([unnamed0631/mcwfences](https://github.com/unnamed0631/mcwfences)), and ported to Sunrise by arismoko. This port is distributed under the same licence.

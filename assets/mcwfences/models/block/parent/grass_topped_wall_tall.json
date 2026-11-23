@@ -2,9 +2,9 @@
 	"credit": "Made with Blockbench",
 	"render_type": "cutout",
 	"textures": {
-		"1": "mcwfences:block/cobblestone",
-		"wall": "mcwfences:block/stone_bricks",
-		"particle": "mcwfences:block/bricks"
+		"1": "minecraft:block/cobblestone",
+		"wall": "minecraft:block/stone_bricks",
+		"particle": "minecraft:block/bricks"
 	},
 	"elements": [
 		{

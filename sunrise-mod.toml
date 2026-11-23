@@ -1,0 +1,10 @@
+# Macaw's Fences and Walls for Sunrise: content only (data/ and assets/), no code.
+id = "mcwfences"
+name = "Macaw's Fences and Walls"
+version = "1.1.0"
+description = "150 fences, gates, walls and hedges in eleven woods and many stone finishes."
+authors = ["Sketch Macaw", "Peachy Macaw"]
+license = "MIT"
+credits = "Ported to Minecraft 26.3 by unnamed0631, and to Sunrise by arismoko."
+homepage = "https://github.com/arismoko/mcwfences"
+side = "both"
