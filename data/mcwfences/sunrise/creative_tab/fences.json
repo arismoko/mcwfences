@@ -151,6 +151,22 @@
     "mcwfences:sandstone_grass_topped_wall",
     "mcwfences:sandstone_pillar_wall",
     "mcwfences:stone_grass_topped_wall",
-    "mcwfences:stone_pillar_wall"
+    "mcwfences:stone_pillar_wall",
+    "mcwfences:orange_poplar_hedge",
+    "mcwfences:pale_oak_hedge",
+    "mcwfences:pale_oak_highley_gate",
+    "mcwfences:pale_oak_horse_fence",
+    "mcwfences:pale_oak_picket_fence",
+    "mcwfences:pale_oak_pyramid_gate",
+    "mcwfences:pale_oak_stockade_fence",
+    "mcwfences:pale_oak_wired_fence",
+    "mcwfences:poplar_highley_gate",
+    "mcwfences:poplar_horse_fence",
+    "mcwfences:poplar_picket_fence",
+    "mcwfences:poplar_pyramid_gate",
+    "mcwfences:poplar_stockade_fence",
+    "mcwfences:poplar_wired_fence",
+    "mcwfences:red_poplar_hedge",
+    "mcwfences:yellow_poplar_hedge"
   ]
 }

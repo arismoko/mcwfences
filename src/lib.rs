@@ -13,7 +13,7 @@ use mod_api::{
 
 /// The wood fences the original's `WiredFence` class builds: one per wood, plus the wooden
 /// cheval de frise (`init/BlockInit.java`).
-const WIRED_WOODS: [&str; 12] = [
+const WIRED_WOODS: [&str; 14] = [
     "oak",
     "spruce",
     "birch",
@@ -25,6 +25,8 @@ const WIRED_WOODS: [&str; 12] = [
     "mangrove",
     "cherry",
     "bamboo",
+    "pale_oak",
+    "poplar",
     "wooden_cheval_de_frise",
 ];
 
@@ -97,7 +99,7 @@ mod tests {
     fn every_hurting_block_is_declared_in_data() {
         let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("data/mcwfences/sunrise/block");
         let blocks = hurting_blocks();
-        assert_eq!(blocks.len(), 13);
+        assert_eq!(blocks.len(), 15);
         for (id, _) in &blocks {
             let file = dir.join(format!("{}.json", id.trim_start_matches("mcwfences:")));
             assert!(file.exists(), "{id} has no declaration");

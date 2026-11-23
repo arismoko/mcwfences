@@ -1,0 +1,13 @@
+{
+  "template": "minecraft:pale_oak_fence",
+  "properties": {
+    "explosion_resistance": 2.5,
+    "hardness": 1.5
+  },
+  "components": {
+    "minecraft:cooking_fuel": {
+      "burn_time": 300,
+      "speed_multiplier": "minecraft:cooking/speed_default"
+    }
+  }
+}
