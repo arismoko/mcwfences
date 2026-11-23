@@ -5,5 +5,8 @@
     "hardness": 2.0,
     "requires_tool": true,
     "sounds": "minecraft:stone"
+  },
+  "components": {
+    "!minecraft:cooking_fuel": {}
   }
 }

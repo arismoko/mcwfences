@@ -431,5 +431,8 @@
         ]
       ]
     }
+  },
+  "components": {
+    "!minecraft:cooking_fuel": {}
   }
 }

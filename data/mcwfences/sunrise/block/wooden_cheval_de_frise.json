@@ -3,5 +3,11 @@
   "properties": {
     "explosion_resistance": 3.0,
     "hardness": 1.0
+  },
+  "components": {
+    "minecraft:cooking_fuel": {
+      "burn_time": 300,
+      "speed_multiplier": "minecraft:cooking/speed_default"
+    }
   }
 }
