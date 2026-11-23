@@ -16,9 +16,9 @@ use fence::{GateCell, GateWorld, Neighbour};
 use mod_api::{
     self, BlockFace, BlockPart, BlockState, BlockUpdateFlags, DamageTypeKey, Direction,
     EntityInsideEvent, EntityWrite, Hooks, InsideEffect, InteractionResult, ItemKey, LevelHost,
-    LevelRandomHost, LevelRef, LevelSide, LevelTicksHost, Registrar, RegistrationContext,
-    ServerHost, SoundSource, StateForPlacementEvent, SupportType, UpdateShapeEvent, UseItemOnEvent,
-    UseWithoutItemEvent,
+    LevelRandomHost, LevelRef, LevelSide, LevelTicksHost, PlacementSource, Registrar,
+    RegistrationContext, ServerHost, SoundSource, StateForPlacementEvent, SupportType,
+    UpdateShapeEvent, UseItemOnEvent, UseWithoutItemEvent,
 };
 
 /// The wood fences the original's `WiredFence` class builds: one per wood, plus the wooden
@@ -389,7 +389,18 @@ impl BlockPart for CurvedGate {
         let (LevelSide::Server(level) | LevelSide::Client(level)) = level;
         let context = event.context;
         let pos = [context.pos.x, context.pos.y, context.pos.z];
-        let facing = fence::facing(context.yaw);
+        let facing = match context.source {
+            PlacementSource::Player { yaw, .. } => fence::facing(yaw),
+            // `DirectionalPlaceContext.getHorizontalDirection`: its own direction, north when
+            // it is vertical.
+            PlacementSource::Directional { direction } => match direction {
+                Direction::South => "south",
+                Direction::West => "west",
+                Direction::East => "east",
+                _ => "north",
+            },
+            _ => return None,
+        };
         let mut hinge = fence::hinge(
             facing,
             context.hit[0] - f64::from(pos[0]),
