@@ -366,7 +366,9 @@ impl BlockPart for CurvedGate {
             );
             return Some(InteractionResult::Pass);
         }
-        Self::click(host, click)
+        // `FenceGateBlock`'s shape: any other item tries the empty hand, which runs for the main hand only,
+        // so a click that reaches the server for both hands toggles the gates once.
+        Some(InteractionResult::TryWithEmptyHand)
     }
 
     fn use_without_item(
