@@ -1,9 +1,11 @@
 {
-  "template": "minecraft:oak_fence_gate",
+  "template": "minecraft:stone",
   "properties": {
     "hardness": 2.0,
     "explosion_resistance": 3.0,
-    "sounds": "minecraft:oak_planks"
+    "sounds": "minecraft:oak_planks",
+    "requires_tool": false,
+    "occludes": false
   },
   "shapes": {
     "properties": [
@@ -53,6 +55,18 @@
     }
   },
   "state_properties": {
+    "facing": {
+      "type": "enum",
+      "values": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ]
+    },
+    "open": {
+      "type": "boolean"
+    },
     "fencepart": {
       "type": "enum",
       "values": [
@@ -69,6 +83,8 @@
     }
   },
   "default_state": {
+    "facing": "north",
+    "open": "false",
     "fencepart": "top",
     "hinge": "left"
   },
@@ -84,5 +100,57 @@
         "italic": false
       }
     ]
+  },
+  "collision_shapes": {
+    "properties": [
+      "facing",
+      "open"
+    ],
+    "values": {
+      "north,false": [
+        [
+          0.0,
+          0.0,
+          0.4375,
+          1.0,
+          1.5,
+          0.5625
+        ]
+      ],
+      "north,true": [],
+      "south,false": [
+        [
+          0.0,
+          0.0,
+          0.4375,
+          1.0,
+          1.5,
+          0.5625
+        ]
+      ],
+      "south,true": [],
+      "east,false": [
+        [
+          0.4375,
+          0.0,
+          0.0,
+          0.5625,
+          1.5,
+          1.0
+        ]
+      ],
+      "east,true": [],
+      "west,false": [
+        [
+          0.4375,
+          0.0,
+          0.0,
+          0.5625,
+          1.5,
+          1.0
+        ]
+      ],
+      "west,true": []
+    }
   }
 }

@@ -15,7 +15,7 @@ A port of [Macaw's Fences and Walls](https://github.com/sketchmacaw/Fences) by S
 
 ## Differences from the original
 
-- The metal fences and curved gates are built on a wooden fence and fence gate, so they can be waterlogged and a curved gate also opens and closes with a redstone signal; the original's do neither.
+- None known: the wired fences' contact damage, the metal fences and the curved gates are ported.
 
 ## Building
 
