@@ -99,6 +99,20 @@
     "mcwfences:poplar_horse_fence",
     "mcwfences:pale_oak_horse_fence",
     "mcwfences:poplar_wired_fence",
-    "mcwfences:pale_oak_wired_fence"
+    "mcwfences:pale_oak_wired_fence",
+    "mcwfences:acorn_metal_fence",
+    "mcwfences:panelled_metal_fence",
+    "mcwfences:mesh_metal_fence",
+    "mcwfences:ornate_metal_fence",
+    "mcwfences:guardian_metal_fence",
+    "mcwfences:gothic_metal_fence",
+    "mcwfences:vintage_metal_fence",
+    "mcwfences:curved_metal_fence",
+    "mcwfences:twilight_metal_fence",
+    "mcwfences:expanded_mesh_metal_fence",
+    "mcwfences:fortress_metal_fence",
+    "mcwfences:bastion_metal_fence",
+    "mcwfences:double_curved_metal_fence",
+    "mcwfences:cathedral_metal_fence"
   ]
 }

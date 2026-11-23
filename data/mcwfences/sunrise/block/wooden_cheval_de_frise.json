@@ -6,7 +6,7 @@
   },
   "components": {
     "minecraft:cooking_fuel": {
-      "burn_time": 300,
+      "burn_time": 50,
       "speed_multiplier": "minecraft:cooking/speed_default"
     }
   }

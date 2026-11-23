@@ -80,6 +80,19 @@
     "mcwfences:pale_oak_highley_gate",
     "mcwfences:pale_oak_pyramid_gate",
     "mcwfences:poplar_wired_fence",
-    "mcwfences:pale_oak_wired_fence"
+    "mcwfences:pale_oak_wired_fence",
+    "mcwfences:oak_curved_gate",
+    "mcwfences:spruce_curved_gate",
+    "mcwfences:birch_curved_gate",
+    "mcwfences:jungle_curved_gate",
+    "mcwfences:acacia_curved_gate",
+    "mcwfences:poplar_curved_gate",
+    "mcwfences:dark_oak_curved_gate",
+    "mcwfences:crimson_curved_gate",
+    "mcwfences:warped_curved_gate",
+    "mcwfences:mangrove_curved_gate",
+    "mcwfences:cherry_curved_gate",
+    "mcwfences:pale_oak_curved_gate",
+    "mcwfences:bamboo_curved_gate"
   ]
 }

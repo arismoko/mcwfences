@@ -1,0 +1,88 @@
+{
+  "template": "minecraft:oak_fence_gate",
+  "properties": {
+    "hardness": 2.0,
+    "explosion_resistance": 3.0,
+    "sounds": "minecraft:oak_planks"
+  },
+  "shapes": {
+    "properties": [
+      "facing"
+    ],
+    "values": {
+      "north": [
+        [
+          0.0,
+          0.0,
+          0.4375,
+          1.0,
+          1.0,
+          0.5625
+        ]
+      ],
+      "south": [
+        [
+          0.0,
+          0.0,
+          0.4375,
+          1.0,
+          1.0,
+          0.5625
+        ]
+      ],
+      "east": [
+        [
+          0.4375,
+          0.0,
+          0.0,
+          0.5625,
+          1.0,
+          1.0
+        ]
+      ],
+      "west": [
+        [
+          0.4375,
+          0.0,
+          0.0,
+          0.5625,
+          1.0,
+          1.0
+        ]
+      ]
+    }
+  },
+  "state_properties": {
+    "fencepart": {
+      "type": "enum",
+      "values": [
+        "top",
+        "bottom"
+      ]
+    },
+    "hinge": {
+      "type": "enum",
+      "values": [
+        "left",
+        "right"
+      ]
+    }
+  },
+  "default_state": {
+    "fencepart": "top",
+    "hinge": "left"
+  },
+  "components": {
+    "minecraft:cooking_fuel": {
+      "burn_time": 50,
+      "speed_multiplier": "minecraft:cooking/speed_default"
+    },
+    "minecraft:lore": [
+      {
+        "translate": "mcwfences.stackable.desc",
+        "color": "gray",
+        "italic": false
+      }
+    ]
+  }
+}

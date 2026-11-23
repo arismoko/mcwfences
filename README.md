@@ -1,20 +1,21 @@
 # Macaw's Fences and Walls for Sunrise
 
-150 fences, gates, walls and hedges in eleven woods and many stone finishes.
+198 fences, gates, walls and hedges in every wood, in metal and in many stone finishes.
 
-A port of [Macaw's Fences and Walls](https://github.com/sketchmacaw/Fences) by Sketch Macaw and Peachy Macaw to [Sunrise](https://playsunrise.net) (Minecraft Java 26.3), as a content mod with a small native part: the original's blocks, models, textures, recipes and strings, plus the wired fences' contact damage.
+A port of [Macaw's Fences and Walls](https://github.com/sketchmacaw/Fences) by Sketch Macaw and Peachy Macaw to [Sunrise](https://playsunrise.net) (Minecraft Java 26.3), as a content mod with a small native part: the original's blocks, models, textures, recipes and strings, plus the wired fences' contact damage, the metal fences' joining and the curved gates.
 
 ## What it does
 
-- Picket, stockade, horse and wired fences, highley and pyramid gates and modern railings in eleven woods.
+- Picket, stockade, horse and wired fences, highley and pyramid gates and modern railings in every wood, pale oak and poplar included.
 - Pillared and grass-topped walls in stone finishes, and leaf hedges.
+- Fourteen metal fence designs, and curved gates in every wood and in metal, which open together with the gates touching them.
 - Fences and walls join their neighbours, gates face the way you place them, and fences can be waterlogged.
 - Wired wood fences and the wooden cheval de frise hurt what stands in them (2 cactus damage), and the iron cheval de frise hurts more (4).
-- 192 recipes (crafting and stonecutting), drops and a creative tab.
+- 241 recipes (crafting and stonecutting), drops and a creative tab.
 
 ## Differences from the original
 
-- None known: the wired fences' contact damage is ported.
+- The metal fences and curved gates are built on a wooden fence and fence gate, so they can be waterlogged and a curved gate also opens and closes with a redstone signal; the original's do neither.
 
 ## Building
 
