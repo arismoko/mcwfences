@@ -1,6 +1,6 @@
 [package]
 name = "mcwfences"
-version = "1.2.4"
+version = "1.2.5"
 edition = "2024"
 license = "MIT"
 description = "Macaw's Fences and Walls for Sunrise: the wired fences' contact damage"
