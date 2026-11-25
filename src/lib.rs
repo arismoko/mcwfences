@@ -14,11 +14,11 @@ pub mod fence;
 
 use fence::{GateCell, GateWorld, Neighbour};
 use mod_api::{
-    self, BlockFace, BlockPart, BlockState, BlockUpdateFlags, DamageTypeKey, Direction,
-    EntityInsideEvent, EntityWrite, Hooks, InsideEffect, InteractionResult, ItemKey, LevelHost,
-    LevelRandomHost, LevelRef, LevelSide, LevelTicksHost, PlacementSource, Registrar,
-    RegistrationContext, ServerHost, SoundSource, StateForPlacementEvent, SupportType,
-    UpdateShapeEvent, UseItemOnEvent, UseWithoutItemEvent,
+    self, BlockFace, BlockPart, BlockState, BlockUpdateFlags, Direction, EntityInsideEvent, Hooks,
+    HostSide, InsideEffect, InteractionResult, ItemKey, LevelHost, LevelRandomHost, LevelRef,
+    LevelSide, LevelTicksHost, PlacementSource, Registrar, RegistrationContext, ServerHost,
+    SoundSource, StateForPlacementEvent, SupportType, TagKey, UpdateShapeEvent, UseItemOnEvent,
+    UseWithoutItemEvent,
 };
 
 /// The wood fences the original's `WiredFence` class builds: one per wood, plus the wooden
@@ -64,20 +64,19 @@ fn hurting_blocks() -> Vec<(String, f32)> {
 
 /// A fence that hurts whatever stands in it.
 pub struct Wired {
-    cactus: DamageTypeKey,
     amount: f32,
 }
+
+/// The damage type of `Cactus.entityInside`.
+const CACTUS: &str = "minecraft:cactus";
 
 #[mod_api::sunrise_part]
 impl BlockPart for Wired {
     fn entity_inside(&self, _level: &mut dyn LevelRandomHost, event: &mut EntityInsideEvent<'_>) {
-        event.run_before(
-            InsideEffect::Freeze,
-            EntityWrite::Hurt {
-                damage_type: self.cactus,
-                amount: self.amount,
-            },
-        );
+        let amount = self.amount;
+        event.run_before(InsideEffect::Freeze, move |view| {
+            view.hurt(CACTUS, amount);
+        });
     }
 }
 
@@ -142,8 +141,38 @@ fn offset(pos: [i32; 3], direction: Direction) -> [i32; 3] {
     [pos[0] + x, pos[1] + y, pos[2] + z]
 }
 
-fn in_tag(level: &dyn LevelHost, state: BlockState, tag: &str) -> bool {
-    level.block_in_tag(state.block(), tag).unwrap_or(false)
+fn in_tag(level: &dyn LevelHost, state: BlockState, tag: TagKey) -> bool {
+    state.is_in_tag(level.tags(), tag).unwrap_or(false)
+}
+
+/// The block tags the metal fences' joining reads, resolved once at registration.
+#[derive(Clone, Copy)]
+pub struct JoinTags {
+    leaves: TagKey,
+    shulker_boxes: TagKey,
+    fences: TagKey,
+    walls: TagKey,
+    fence_gates: TagKey,
+    hedges: TagKey,
+    grass_topped_walls: TagKey,
+    curved_double_gates: TagKey,
+    metal_double_gates: TagKey,
+}
+
+impl JoinTags {
+    fn resolve(r: &mut dyn Registrar) -> Self {
+        Self {
+            leaves: r.tag_key("minecraft:leaves"),
+            shulker_boxes: r.tag_key("minecraft:shulker_boxes"),
+            fences: r.tag_key("minecraft:fences"),
+            walls: r.tag_key("minecraft:walls"),
+            fence_gates: r.tag_key("minecraft:fence_gates"),
+            hedges: r.tag_key("mcwfences:hedges"),
+            grass_topped_walls: r.tag_key("mcwfences:grass_topped_walls"),
+            curved_double_gates: r.tag_key("mcwfences:curved_double_gates"),
+            metal_double_gates: r.tag_key("mcwfences:metal_double_gates"),
+        }
+    }
 }
 
 /// Whether the state is air, which no metal fence joins.
@@ -155,7 +184,13 @@ fn is_air(level: &dyn LevelHost, state: BlockState) -> bool {
 }
 
 /// `MetalFence.canConnect` for the block at `at`, `toward` the fence from the fence's side.
-fn joins(level: &dyn LevelHost, at: [i32; 3], state: BlockState, toward: Direction) -> bool {
+fn joins(
+    tags: JoinTags,
+    level: &dyn LevelHost,
+    at: [i32; 3],
+    state: BlockState,
+    toward: Direction,
+) -> bool {
     if is_air(level, state) {
         return false;
     }
@@ -168,21 +203,20 @@ fn joins(level: &dyn LevelHost, at: [i32; 3], state: BlockState, toward: Directi
                 | "minecraft:melon"
                 | "minecraft:pumpkin"
         )
-    ) || in_tag(level, state, "minecraft:leaves")
-        || in_tag(level, state, "minecraft:shulker_boxes");
+    ) || in_tag(level, state, tags.leaves)
+        || in_tag(level, state, tags.shulker_boxes);
     let sturdy = level
         .block_face_sturdy(at, face(toward.opposite()), SupportType::Full)
         .unwrap_or(false);
     fence::connects(Neighbour {
         exception,
         sturdy,
-        fence: in_tag(level, state, "minecraft:fences"),
-        wall: in_tag(level, state, "minecraft:walls"),
-        gate: in_tag(level, state, "minecraft:fence_gates"),
-        hitbox: in_tag(level, state, "mcwfences:hedges")
-            || in_tag(level, state, "mcwfences:grass_topped_walls"),
-        double_gate: in_tag(level, state, "mcwfences:curved_double_gates")
-            || in_tag(level, state, "mcwfences:metal_double_gates"),
+        fence: in_tag(level, state, tags.fences),
+        wall: in_tag(level, state, tags.walls),
+        gate: in_tag(level, state, tags.fence_gates),
+        hitbox: in_tag(level, state, tags.hedges) || in_tag(level, state, tags.grass_topped_walls),
+        double_gate: in_tag(level, state, tags.curved_double_gates)
+            || in_tag(level, state, tags.metal_double_gates),
     })
 }
 
@@ -197,6 +231,7 @@ fn same_block(level: &dyn LevelHost, pos: [i32; 3], direction: Direction, own: B
 /// middle (`MetalFence`, `MetalFenceMiddle`).
 pub struct MetalFence {
     middle: bool,
+    tags: JoinTags,
 }
 
 impl MetalFence {
@@ -227,7 +262,7 @@ impl BlockPart for MetalFence {
             let at = offset(pos, direction);
             let joined = level
                 .block_state(at)
-                .is_some_and(|neighbour| joins(level, at, neighbour, direction));
+                .is_some_and(|neighbour| joins(self.tags, level, at, neighbour, direction));
             state =
                 level.state_with_property(state, name, if joined { "true" } else { "false" })?;
         }
@@ -247,7 +282,13 @@ impl BlockPart for MetalFence {
             return self.part(level, pos, event.state);
         };
         let n = event.neighbour_pos;
-        let joined = joins(level, [n.x, n.y, n.z], event.neighbour, event.direction);
+        let joined = joins(
+            self.tags,
+            level,
+            [n.x, n.y, n.z],
+            event.neighbour,
+            event.direction,
+        );
         level.state_with_property(event.state, name, if joined { "true" } else { "false" })
     }
 }
@@ -347,23 +388,26 @@ impl CurvedGate {
 impl BlockPart for CurvedGate {
     fn use_item_on(
         &self,
-        host: &mut dyn ServerHost,
+        host: HostSide<'_>,
         event: &mut UseItemOnEvent<'_>,
     ) -> Option<InteractionResult> {
         let click = event.click;
         if click.stack.is_some_and(|s| s.item() == self.item) {
-            let level = host.level(click.dimension.key().id())?;
-            let unit = level
-                .with_random(host, |random| random.next_float())
-                .unwrap_or(0.5);
-            play(
-                host,
-                level,
-                "minecraft:block.wood.place",
-                click.pos,
-                0.5,
-                unit * 0.1 + 0.8,
-            );
+            // The place sound is a server effect; the client predicts the same answer.
+            if let HostSide::Server(host) = host {
+                let level = host.level(click.dimension.key().id())?;
+                let unit = level
+                    .with_random(host, |random| random.next_float())
+                    .unwrap_or(0.5);
+                play(
+                    host,
+                    level,
+                    "minecraft:block.wood.place",
+                    click.pos,
+                    0.5,
+                    unit * 0.1 + 0.8,
+                );
+            }
             return Some(InteractionResult::Pass);
         }
         // `FenceGateBlock`'s shape: any other item tries the empty hand, which runs for the main hand only,
@@ -371,11 +415,16 @@ impl BlockPart for CurvedGate {
         Some(InteractionResult::TryWithEmptyHand)
     }
 
+    /// The toggle writes blocks, so it runs on the server; the client leaves the swing to the
+    /// server's answer.
     fn use_without_item(
         &self,
-        host: &mut dyn ServerHost,
+        host: HostSide<'_>,
         event: &mut UseWithoutItemEvent<'_>,
     ) -> Option<InteractionResult> {
+        let HostSide::Server(host) = host else {
+            return None;
+        };
         Self::click(host, event.click)
     }
 
@@ -440,18 +489,24 @@ impl BlockPart for CurvedGate {
 
 /// Attach [`Wired`] to every hurting block.
 pub fn declare(r: &mut dyn Registrar) {
-    let cactus = r.damage_type_key("minecraft:cactus");
+    let tags = JoinTags::resolve(r);
     for (id, amount) in hurting_blocks() {
         let block = r.block_key(&id);
-        r.block_part(block, Wired { cactus, amount });
+        r.block_part(block, Wired { amount });
     }
     for name in METAL_FENCES {
         let block = r.block_key(&format!("mcwfences:{name}"));
-        r.block_part(block, MetalFence { middle: false });
+        r.block_part(
+            block,
+            MetalFence {
+                middle: false,
+                tags,
+            },
+        );
     }
     for name in METAL_FENCES_WITH_MIDDLE {
         let block = r.block_key(&format!("mcwfences:{name}"));
-        r.block_part(block, MetalFence { middle: true });
+        r.block_part(block, MetalFence { middle: true, tags });
     }
     for name in curved_gates() {
         let block = r.block_key(&format!("mcwfences:{name}"));

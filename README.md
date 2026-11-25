@@ -26,7 +26,7 @@ cargo sunrise-mod check
 cargo sunrise-mod build    # target/sunrise-mod/mcwfences.smod
 ```
 
-This version is made for the Sunrise Dev build `dev-2026-11-22-7cfdf81`.
+This version is made for the Sunrise Dev build `dev-2026-11-25-bdad86d`.
 
 ## Licence and credits
 
