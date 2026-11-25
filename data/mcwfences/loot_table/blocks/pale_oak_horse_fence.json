@@ -9,11 +9,9 @@
           "name": "mcwfences:pale_oak_horse_fence"
         }
       ],
-      "conditions": [
-        {
-          "type": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ]
 }

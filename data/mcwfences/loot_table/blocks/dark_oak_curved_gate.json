@@ -9,11 +9,9 @@
           "name": "mcwfences:dark_oak_curved_gate"
         }
       ],
-      "conditions": [
-        {
-          "type": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ]
 }

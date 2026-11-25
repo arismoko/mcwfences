@@ -9,11 +9,9 @@
           "name": "mcwfences:crimson_curved_gate"
         }
       ],
-      "conditions": [
-        {
-          "type": "minecraft:survives_explosion"
-        }
-      ]
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ]
 }
