@@ -1,7 +1,7 @@
 # Macaw's Fences and Walls for Sunrise: content in data/ and assets/, with a small native part in src/.
 id = "mcwfences"
 name = "Macaw's Fences and Walls"
-version = "1.2.5"
+version = "1.2.6"
 description = "198 fences, gates, walls and hedges in every wood, in metal and in many stone finishes."
 authors = ["Sketch Macaw", "Peachy Macaw", "arismoko"]
 license = "MIT"
@@ -11,4 +11,4 @@ side = "both"
 
 [native]
 game = "26.3"
-sunrise = "6a02076f89cd189d74d63492dda5b023fa85a38f"
+sunrise = "ba1f24e4ad41246b558230aa665539dc768b1287"

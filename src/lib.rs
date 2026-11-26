@@ -142,7 +142,7 @@ fn offset(pos: [i32; 3], direction: Direction) -> [i32; 3] {
 }
 
 fn in_tag(level: &dyn LevelHost, state: BlockState, tag: TagKey) -> bool {
-    state.is_in_tag(level.tags(), tag).unwrap_or(false)
+    state.is_in_tag(level.tags(), tag.typed()).unwrap_or(false)
 }
 
 /// The block tags the metal fences' joining reads, resolved once at registration.
